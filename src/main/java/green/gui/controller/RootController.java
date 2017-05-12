@@ -35,7 +35,7 @@ public class RootController {
 
     private MainApp mainApp;
     private ObservableList<EnergyModel> energyData = FXCollections.observableArrayList();
-    private Stage rootStage;
+    private Stage energyCallStage;
     private BooleanProperty isEnergyObtained = new SimpleBooleanProperty(true);
 
     @FXML
@@ -46,18 +46,18 @@ public class RootController {
         energyCallBtn.setOnAction(event -> {
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(this.getClass().getResource("../../../view/EnergyCall.fxml"));
+                loader.setLocation(this.getClass().getClassLoader().getResource("view/EnergyCall.fxml"));
                 GridPane gridPane = loader.load();
 
                 EnergyCallController eCController = loader.getController();
                 eCController.setRootController(this);
                 eCController.bindSubmitButton();
 
-                rootStage = new Stage();
-                rootStage.setTitle("M");
-                rootStage.setScene(new Scene(gridPane, 400, 400));
+                energyCallStage = new Stage();
+                energyCallStage.setTitle("M");
+                energyCallStage.setScene(new Scene(gridPane, 400, 400));
 
-                rootStage.show();
+                energyCallStage.show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -76,12 +76,12 @@ public class RootController {
         this.mainApp = mainApp;
     }
 
-    public Stage getRootStage() {
-        return rootStage;
+    public Stage getEnergyCallStage() {
+        return energyCallStage;
     }
 
-    public void setRootStage(Stage rootStage) {
-        this.rootStage = rootStage;
+    public void setEnergyCallStage(Stage energyCallStage) {
+        this.energyCallStage = energyCallStage;
     }
 
     public TableView<EnergyModel> getEnergyTable() {

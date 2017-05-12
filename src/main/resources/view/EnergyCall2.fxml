@@ -28,15 +28,13 @@
    <children>
       <TextField fx:id="folderInput" promptText="Folder name" GridPane.columnSpan="2" GridPane.rowIndex="3" />
       <TextField fx:id="mainInput" prefHeight="27.0" prefWidth="239.0" promptText="Main java file " GridPane.columnSpan="2" GridPane.rowIndex="5" />
-      <Button fx:id="submitButton" defaultButton="true" mnemonicParsing="false" text="Submit" GridPane.columnIndex="3" GridPane.rowIndex="5" />
-      <Label prefHeight="17.0" prefWidth="202.0" text="Folder:" GridPane.rowIndex="2" />
+      <Button fx:id="submitButton" mnemonicParsing="false" text="Submit" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+      <Label prefHeight="17.0" prefWidth="202.0" text="Folder in javaGreen:" GridPane.rowIndex="2" />
       <Label prefHeight="17.0" prefWidth="189.0" text="Main Java filename:" GridPane.rowIndex="4" />
       <ScrollPane fx:id="scroll" prefHeight="200.0" prefWidth="200.0" GridPane.columnSpan="4" GridPane.rowIndex="1">
          <content>
             <TextFlow fx:id="infoText" />
          </content>
       </ScrollPane>
-      <Button fx:id="folderSelectBtn" mnemonicParsing="false" text="..." GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <Button fx:id="mainSelectBtn" mnemonicParsing="false" text="..." GridPane.columnIndex="2" GridPane.rowIndex="5" />
    </children>
 </GridPane>

@@ -15,9 +15,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.FileChooser;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -41,13 +44,18 @@ public class EnergyCallController {
     private Button submitButton;
 
     @FXML
+    private Button folderSelectBtn;
+
+    @FXML
+    private Button mainSelectBtn;
+
+    @FXML
     private ScrollPane scroll;
 
     private enum FILE_VALIDITY {EXIST, WRONG_FOLDER, WRONG_MAIN}
 
     public EnergyCallController() {
         this.confirmed = false;
-//        this.energyCall.setEnergyController(this);
     }
 
     @FXML
@@ -56,7 +64,6 @@ public class EnergyCallController {
 
         submitButton.setOnAction(event -> {
             handleSubmit(folderInput.getText(), mainInput.getText());
-            getRootController().setIsEnergyObtained(false);
         });
 
         folderInput.setOnKeyPressed(event -> {
@@ -72,19 +79,11 @@ public class EnergyCallController {
         });
 
         Text t1 = new Text();
+        //TODO: Change the default folder from javaGreen
         t1.setText("Starting java energy debugger process... \n" +
                 "-------------- Notes ---------------\n" +
                 "Currently still under development. \n" +
-                "Version 1.1\n" +
-                "----------------------------------\n" +
-                "Please place your application into the javaGreen folder.\n" +
-                "Example: \n" +
-                "javaGreen\n" +
-                "---algorithms\n" +
-                "------search\n" +
-                "---------binarysearch\n" +
-                "folder: algorithms\n" +
-                "main: search/binarysearch\n");
+                "Version 1.1\n");
 
         infoText.getChildren().addAll(t1);
         infoText.getChildren().addListener((ListChangeListener<Node>) c -> {
@@ -92,7 +91,41 @@ public class EnergyCallController {
             scroll.setVvalue(1.0d);
         });
 
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        FileChooser fileChooser = new FileChooser();
 
+        folderSelectBtn.setOnAction(event -> {
+            File selectedDirectory = directoryChooser.showDialog(rootController.getEnergyCallStage());
+            if (selectedDirectory == null) {
+            } else {
+                folderInput.setText(selectedDirectory.getAbsolutePath());
+            }
+        });
+
+        mainSelectBtn.setOnAction(event -> {
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("JAVA", "*.java"));
+            File selectedFile = fileChooser.showOpenDialog(rootController.getEnergyCallStage());
+
+            if (selectedFile == null) {
+            } else {
+                mainInput.setText(selectedFile.getAbsolutePath());
+            }
+        });
+
+        folderInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            File initialDirectory = new File(newValue);
+            if (initialDirectory.isDirectory()) {
+                directoryChooser.setInitialDirectory(initialDirectory);
+                mainInput.textProperty().set(initialDirectory.getAbsolutePath());
+            }
+        }));
+
+        mainInput.textProperty().addListener(((observable, oldValue, newValue) -> {
+            File initialDirectory = new File(newValue);
+            if (initialDirectory.isDirectory()) {
+                fileChooser.setInitialDirectory(initialDirectory);
+            }
+        }));
     }
 
     public void bindSubmitButton() {
@@ -100,6 +133,7 @@ public class EnergyCallController {
             {
                 super.bind(getRootController().isEnergyObtainedProperty(), folderInput.textProperty(), mainInput.textProperty());
             }
+
             @Override
             protected boolean computeValue() {
                 return folderInput.getText().isEmpty() || mainInput.getText().isEmpty() || !getRootController().isIsEnergyObtained();
@@ -110,12 +144,13 @@ public class EnergyCallController {
 
     @FXML
     private void handleSubmit(String _folderInput, String _mainInput) {
-        _mainInput = convertMainInput(_folderInput, _mainInput);
-        Report report = new Report();
-        Report.setRootController(rootController);
-
         switch (isFileValid(_folderInput, _mainInput)) {
             case EXIST:
+                Report report = new Report();
+                Report.setRootController(rootController);
+
+//                _mainInput = convertMainInput(_folderInput, _mainInput);
+                getRootController().setIsEnergyObtained(false);
                 getRootController().getEnergyData().removeAll(getRootController().getEnergyData());
                 infoText.getChildren().add(new Text("\n" +
                         "Decompiling and obtaining energy report...\n" +
@@ -137,7 +172,7 @@ public class EnergyCallController {
                 break;
             case WRONG_FOLDER:
                 Alert folderMissingError = new Alert(Alert.AlertType.ERROR);
-                folderMissingError.initOwner(rootController.getRootStage());
+                folderMissingError.initOwner(rootController.getEnergyCallStage());
                 folderMissingError.setTitle("Missing Folder");
                 folderMissingError.setHeaderText("Folder not found");
                 folderMissingError.setContentText("Please input the right folder name in the right directory.");
@@ -145,7 +180,7 @@ public class EnergyCallController {
                 break;
             case WRONG_MAIN:
                 Alert fileMissingError = new Alert(Alert.AlertType.ERROR);
-                fileMissingError.initOwner(rootController.getRootStage());
+                fileMissingError.initOwner(rootController.getEnergyCallStage());
                 fileMissingError.setTitle("Missing File");
                 fileMissingError.setHeaderText("File not found");
                 fileMissingError.setContentText("Please input the right filename in the right directory.");
@@ -156,12 +191,12 @@ public class EnergyCallController {
     }
 
     private FILE_VALIDITY isFileValid(String _folderInput, String _mainInput) {
-        File dir = new File("src/javaGreen/" + _folderInput);
+        File dir = new File(_folderInput);
         if (!dir.isDirectory()) {
             return FILE_VALIDITY.WRONG_FOLDER;
         }
-        File f = new File("src/javaGreen/" + _folderInput + "/" + _mainInput + ".java");
-        File[] fs = new File(f.getParent()).listFiles();
+        File f = new File(_mainInput);
+//        File[] fs = new File(f.getParent()).listFiles();
         if (f.exists() && !f.isDirectory()) {
             return FILE_VALIDITY.EXIST;
         } else {

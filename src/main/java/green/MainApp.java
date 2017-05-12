@@ -45,7 +45,7 @@ public class MainApp extends Application {
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(this.getClass().getResource("../view/RootLayout.fxml"));
+            loader.setLocation(this.getClass().getClassLoader().getResource("view/RootLayout.fxml"));
             rootLayout = loader.load();
 
             RootController rootController = loader.getController();
@@ -69,7 +69,7 @@ public class MainApp extends Application {
         try {
             // Load GraphicLayout.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(this.getClass().getResource("../view/GraphicLayout.fxml"));
+            loader.setLocation(this.getClass().getClassLoader().getResource("view/GraphicLayout.fxml"));
             AnchorPane energyOverview = loader.load();
 
             // Set GraphicLayout into the center of root layout.

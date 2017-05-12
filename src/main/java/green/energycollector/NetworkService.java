@@ -97,7 +97,6 @@ public class NetworkService {
         Report.setEnergyList(energyList);
         Report.insertReportToDatabase();
         getRootController().setIsEnergyObtained(true);
-
     }
 
     public RootController getRootController() {
