@@ -6,7 +6,7 @@ package green.energycollector;
 import green.gui.controller.RootController;
 import green.gui.model.EnergyModel;
 import green.gui.model.Report;
-import green.misc.ENERGY_LABEL;
+import green.Util.ENERGY_LABEL;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

@@ -95,6 +95,7 @@ public class EnergyCallController {
         FileChooser fileChooser = new FileChooser();
 
         folderSelectBtn.setOnAction(event -> {
+            directoryChooser.setInitialDirectory(new File("D:\\Documents\\IdeaProjects\\algorithms2\\"));
             File selectedDirectory = directoryChooser.showDialog(rootController.getEnergyCallStage());
             if (selectedDirectory == null) {
             } else {

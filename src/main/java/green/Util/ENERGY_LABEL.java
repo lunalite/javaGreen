@@ -1,4 +1,4 @@
-package green.misc;
+package green.Util;
 
 /**
  * C_AVERAGE: Cached average

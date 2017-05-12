@@ -7,7 +7,7 @@ import green.config.Configuration;
 import green.database.MongoConnect;
 import green.energycollector.StatisticalCall;
 import green.gui.controller.RootController;
-import green.misc.ENERGY_LABEL;
+import green.Util.ENERGY_LABEL;
 import org.bson.Document;
 
 import java.io.IOException;

@@ -6,7 +6,6 @@
 ################################################################################################################################
 
 #This compiles the required java files.
-cd ../../../../javaGreen
 cd $FOLDER_INPUT
 if [ ! -d "./build" ]; then
   mkdir build
