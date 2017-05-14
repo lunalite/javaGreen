@@ -36,7 +36,7 @@
       </MenuBar>
    </top>
    <right>
-      <SplitPane prefHeight="371.0" prefWidth="210.0" BorderPane.alignment="CENTER">
+      <SplitPane prefHeight="368.0" prefWidth="230.0" BorderPane.alignment="CENTER">
          <items>
             <TableView fx:id="energyTable" prefHeight="369.0" prefWidth="172.0">
                <columnResizePolicy>

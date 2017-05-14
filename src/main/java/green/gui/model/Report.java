@@ -44,11 +44,11 @@ public class Report {
             if (isInDatabase(reportDocument) == 0) {
                 //Added into database a new record
                 logger.info("Report doesn't exist. Creating...");
-                mongoCollection.insertOne(reportDocument);
                 getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_AVERAGE, 0));
                 getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_MAX, 0));
                 getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_MIN, 0));
                 getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_NO, 0));
+                mongoCollection.insertOne(reportDocument);
             } else {
                 //Report exists in the database
                 logger.info("Report exists in database. Adding to energy list in a moment...");
@@ -63,6 +63,11 @@ public class Report {
                         getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_NO, energyList.size()));
                     } catch (IOException e) {
                         logger.log(Level.SEVERE, e.toString(), e);
+                    } catch (NullPointerException e) {
+                        getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_AVERAGE, 0));
+                        getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_MAX, 0));
+                        getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_MIN, 0));
+                        getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_NO, 0));
                     }
                 });
             }
@@ -79,6 +84,7 @@ public class Report {
                             energyList.add(e);
                         }
                     }
+                    System.out.println(energyList.size());
                     Report.averageEnergy = StatisticalCall.obtainAveragePower(energyList);
                     //TODO: Resolve this issue why the energy doesn't show up
                     getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.O_AVERAGE, averageEnergy));

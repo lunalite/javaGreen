@@ -55,7 +55,7 @@ public class RootController {
 
                 energyCallStage = new Stage();
                 energyCallStage.setTitle("M");
-                energyCallStage.setScene(new Scene(gridPane, 400, 400));
+                energyCallStage.setScene(new Scene(gridPane, 640, 480));
 
                 energyCallStage.show();
             } catch (IOException e) {
