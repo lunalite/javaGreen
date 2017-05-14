@@ -29,7 +29,7 @@ public class RootController {
     @FXML
     private TableView<EnergyModel> energyTable;
     @FXML
-    private TableColumn<EnergyModel, Double> energyColumn;
+    private TableColumn<EnergyModel, String> energyColumn;
     @FXML
     private TableColumn<EnergyModel, String> labelColumn;
 
@@ -40,7 +40,7 @@ public class RootController {
 
     @FXML
     private void initialize() {
-        energyColumn.setCellValueFactory(cellData -> cellData.getValue().energyProperty().asObject());
+        energyColumn.setCellValueFactory(cellData -> cellData.getValue().energyRoundingProperty());
         labelColumn.setCellValueFactory(cellData -> cellData.getValue().labelProperty());
         energyTable.setItems(energyData);
         energyCallBtn.setOnAction(event -> {
@@ -92,11 +92,11 @@ public class RootController {
         this.energyTable = energyTable;
     }
 
-    public TableColumn<EnergyModel, Double> getEnergyColumn() {
+    public TableColumn<EnergyModel, String> getEnergyColumn() {
         return energyColumn;
     }
 
-    public void setEnergyColumn(TableColumn<EnergyModel, Double> energyColumn) {
+    public void setEnergyColumn(TableColumn<EnergyModel, String> energyColumn) {
         this.energyColumn = energyColumn;
     }
 

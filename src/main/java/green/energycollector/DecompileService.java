@@ -38,7 +38,7 @@ public class DecompileService extends Service<List> {
                 final int exitStatus = p.waitFor();
                 //System.out.println("Processed finished with status: " + exitStatus);
 
-                File decompiledFile = new File( getFolderInput() + "/build/decompiledMain");
+                File decompiledFile = new File(getFolderInput() + "/build/decompiledMain");
                 List<String> decompiledAmbly = FileUtils.readLines(decompiledFile, "utf-8");
                 //TODO Find some classifications of assembly
 
@@ -51,11 +51,16 @@ public class DecompileService extends Service<List> {
     }
 
     public static void gitCall(String _folderInput, String _mainInput) throws IOException {
-        ProcessBuilder pb = new ProcessBuilder("/bin/bash", "gitCall.sh");
+        ProcessBuilder pb;
+        if (OsUtil.isWindows()) {
+            pb = new ProcessBuilder("cmd.exe", "/C", "gitCall.sh");
+        } else {
+            pb = new ProcessBuilder("/bin/bash", "gitCall.sh");
+        }
         Map<String, String> env = pb.environment();
         env.put("FOLDER_INPUT", _folderInput);
         env.put("MAIN_INPUT", _mainInput);
-        pb.directory(new File("./src/main/java/green/energycollector/"));
+        pb.directory(new File("./src/main/java/green/energycollector/shell"));
         Process process = pb.start();
 //        Misc.printProcessFromProcessBuilder(process.getInputStream());
     }

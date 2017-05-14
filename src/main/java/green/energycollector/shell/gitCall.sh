@@ -6,8 +6,8 @@
 #
 ################################################################################################################################
 ip=129.31.180.171
-FOLDER_INPUT=D:\Documents\IdeaProjects\algorithms2
-MAIN_INPUT=D:\Documents\IdeaProjects\algorithms2\algorithms\Main.java
+FOLDER_INPUT=D:/Documents/IdeaProjects/algorithms2
+MAIN_INPUT=D:/Documents/IdeaProjects/algorithms2/algorithms/Main.java
 
 cd $FOLDER_INPUT
 git rm --cached -r .
@@ -39,4 +39,3 @@ git branch -r | egrep ^..origin/epoch.*$ | egrep -v ${LOCAL_BRANCH} | while read
   fi
 done
 
-pause

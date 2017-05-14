@@ -1,6 +1,6 @@
 ECHO OFF
-::SET FOLDER_INPUT=D:\Documents\IdeaProjects\algorithms2
-::SET MAIN_INPUT=D:\Documents\IdeaProjects\algorithms2\algorithms\Main.java
+SET FOLDER_INPUT=D:\Documents\IdeaProjects\algorithms2
+SET MAIN_INPUT=D:\Documents\IdeaProjects\algorithms2\algorithms\Main.java
 
 cd %FOLDER_INPUT%
 IF NOT EXIST .\build (
@@ -28,6 +28,7 @@ set word=
 set str=%MAIN_INPUT%
 call set str=%%str:%FOLDER_INPUT%\=%word%%%
 call set str=%%str:.java=%%
+call set str=%%str:\=/%%
 echo Main-class: %str% > build/META-INF/MANIFEST.MF
 
 ::This section jars the FOLDER_INPUT

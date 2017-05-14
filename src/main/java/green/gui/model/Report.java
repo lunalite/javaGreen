@@ -45,6 +45,10 @@ public class Report {
                 //Added into database a new record
                 logger.info("Report doesn't exist. Creating...");
                 mongoCollection.insertOne(reportDocument);
+                getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_AVERAGE, 0));
+                getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_MAX, 0));
+                getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_MIN, 0));
+                getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_NO, 0));
             } else {
                 //Report exists in the database
                 logger.info("Report exists in database. Adding to energy list in a moment...");

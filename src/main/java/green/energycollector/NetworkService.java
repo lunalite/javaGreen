@@ -88,6 +88,15 @@ public class NetworkService {
                 energyList.add(Double.parseDouble(m.group(0)));
             }
         }
+
+        Pattern p2 = Pattern.compile("\\d*.?\\d+(?= W)");
+        for (String x: lines) {
+            Matcher m2 = p2.matcher(x);
+            if (m2.find()) {
+                energyList.add(Double.parseDouble(m2.group(0))*1000);
+            }
+        }
+
         double averageEnergy = StatisticalCall.obtainAveragePower(energyList);
         getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.N_AVERAGE, averageEnergy));
         getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.N_MAX, Collections.max(energyList)));
