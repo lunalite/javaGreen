@@ -19,6 +19,7 @@
                      <accelerator>
                         <KeyCodeCombination alt="DOWN" code="DIGIT1" control="UP" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator></MenuItem>
+                  <MenuItem fx:id="exportBtn" mnemonicParsing="false" text="Export as CSV" />
                   <MenuItem fx:id="fileCloseBtn" mnemonicParsing="false" onAction="#fileCloseHandler" text="Close" />
             </items>
           </Menu>
@@ -27,11 +28,11 @@
               <MenuItem mnemonicParsing="false" text="Nothing" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Nothing" />
-            </items>
-          </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem fx:id="energyDebuggerHelpBtn" mnemonicParsing="false" text="Energy Debugger Help" />
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
    </top>

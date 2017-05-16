@@ -20,7 +20,10 @@ import java.util.logging.Logger;
 public class Report {
     private static final Logger logger = Logger.getLogger(Report.class.getName());
     private static double averageEnergy;
-    private static List<Double> energyList;
+    private static List<Double> newEnergyList;
+    private static List<Double> cachedEnergyList;
+    private static List<Double> overallEnergyList;
+    private static boolean isOverallEnergyListObtained;
     private static List<String> decompiledAmbly;
     private static Document reportDocument;
     private static boolean insertedDocument;
@@ -29,7 +32,10 @@ public class Report {
 
     public Report() {
         Report.averageEnergy = 0.0;
-        Report.energyList = new ArrayList<>();
+        Report.newEnergyList = new ArrayList<>();
+        Report.cachedEnergyList = new ArrayList<>();
+        Report.overallEnergyList = new ArrayList<>();
+        Report.isOverallEnergyListObtained = false;
         Report.decompiledAmbly = null;
         Report.reportDocument = null;
         Report.insertedDocument = false;
@@ -56,11 +62,11 @@ public class Report {
                     String json = document.toJson();
                     try {
                         DecompilationMongoModel dmm = mapper.readValue(json, DecompilationMongoModel.class);
-                        List<Double> energyList = dmm.getEnergyList();
+                        cachedEnergyList = dmm.getEnergyList();
                         getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_AVERAGE, dmm.getAverageEnergy()));
-                        getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_MAX, Collections.max(energyList)));
-                        getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_MIN, Collections.min(energyList)));
-                        getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_NO, energyList.size()));
+                        getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_MAX, Collections.max(cachedEnergyList)));
+                        getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_MIN, Collections.min(cachedEnergyList)));
+                        getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.C_NO, cachedEnergyList.size()));
                     } catch (IOException e) {
                         logger.log(Level.SEVERE, e.toString(), e);
                     } catch (NullPointerException e) {
@@ -74,29 +80,32 @@ public class Report {
             insertedDocument = true;
         } else if (decompiledAmbly != null && averageEnergy != 0.0 && reportDocument != null && insertedDocument) {
             logger.info("Report inserted to database after adding energy");
-            mongoCollection.find(reportDocument).forEach((Block<Document>) document -> {
-                String json = document.toJson();
-                try {
-                    DecompilationMongoModel dmm = mapper.readValue(json, DecompilationMongoModel.class);
-                    List<Double> dBEnergyList = dmm.getEnergyList();
-                    if (dBEnergyList != null) {
-                        for (Double e : dBEnergyList) {
-                            energyList.add(e);
-                        }
-                    }
-                    System.out.println(energyList.size());
-                    Report.averageEnergy = StatisticalCall.obtainAveragePower(energyList);
-                    //TODO: Resolve this issue why the energy doesn't show up
-                    getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.O_AVERAGE, averageEnergy));
-                    getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.O_MAX, Collections.max(energyList)));
-                    getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.O_MIN, Collections.min(energyList)));
-                    getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.O_NO, energyList.size()));
-                    mongoCollection.findOneAndUpdate(reportDocument, new Document("$set", new Document("averageEnergy", averageEnergy)
-                            .append("energyList", energyList)));
-                } catch (IOException e) {
-                    logger.log(Level.SEVERE, e.toString(), e);
+//            mongoCollection.find(reportDocument).forEach((Block<Document>) document -> {
+//                String json = document.toJson();
+//                try {
+//                    DecompilationMongoModel dmm = mapper.readValue(json, DecompilationMongoModel.class);
+//                    List<Double> dBEnergyList = dmm.getEnergyList();
+            if (cachedEnergyList != null) {
+                for (Double e : cachedEnergyList) {
+                    overallEnergyList.add(e);
                 }
-            });
+            }
+            for (Double e : newEnergyList) {
+                overallEnergyList.add(e);
+            }
+            Report.isOverallEnergyListObtained = true;
+            System.out.println(overallEnergyList.size());
+            Report.averageEnergy = StatisticalCall.obtainAveragePower(overallEnergyList);
+            getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.O_AVERAGE, averageEnergy));
+            getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.O_MAX, Collections.max(overallEnergyList)));
+            getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.O_MIN, Collections.min(overallEnergyList)));
+            getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.O_NO, overallEnergyList.size()));
+            mongoCollection.findOneAndUpdate(reportDocument, new Document("$set", new Document("averageEnergy", averageEnergy)
+                    .append("energyList", overallEnergyList)));
+//                } catch (IOException e) {
+//                    logger.log(Level.SEVERE, e.toString(), e);
+//                }
+//            });
 
         } else {
             logger.info("Failed to insert to database");
@@ -111,8 +120,8 @@ public class Report {
         Report.averageEnergy = averageEnergy;
     }
 
-    public static void setEnergyList(List<Double> energyList) {
-        Report.energyList = energyList;
+    public static void setNewEnergyList(List<Double> newEnergyList) {
+        Report.newEnergyList = newEnergyList;
     }
 
     public static List<String> getDecompiledAmbly() {
@@ -137,5 +146,13 @@ public class Report {
 
     public static void setRootController(RootController rootController) {
         Report.rootController = rootController;
+    }
+
+    public static List<Double> getOverallEnergyList() {
+        return overallEnergyList;
+    }
+
+    public static boolean isIsOverallEnergyListObtained() {
+        return isOverallEnergyListObtained;
     }
 }

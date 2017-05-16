@@ -103,9 +103,10 @@ public class NetworkService {
         getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.N_MIN, Collections.min(energyList)));
         getRootController().getEnergyData().add(new EnergyModel(ENERGY_LABEL.N_NO, energyList.size()));
         Report.setAverageEnergy(averageEnergy);
-        Report.setEnergyList(energyList);
+        Report.setNewEnergyList(energyList);
         Report.insertReportToDatabase();
         getRootController().setIsEnergyObtained(true);
+        getRootController().setIsEnergyObtainedFirst(true);
     }
 
     public RootController getRootController() {

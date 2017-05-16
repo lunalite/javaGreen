@@ -95,9 +95,9 @@ public class EnergyCallController {
         FileChooser fileChooser = new FileChooser();
 
         folderSelectBtn.setOnAction(event -> {
-            directoryChooser.setInitialDirectory(new File("D:\\Documents\\IdeaProjects\\algorithms2\\"));
             File selectedDirectory = directoryChooser.showDialog(rootController.getEnergyCallStage());
             if (selectedDirectory == null) {
+                System.out.println("Hi");
             } else {
                 folderInput.setText(selectedDirectory.getAbsolutePath());
             }
@@ -152,7 +152,9 @@ public class EnergyCallController {
 
 //                _mainInput = convertMainInput(_folderInput, _mainInput);
                 getRootController().setIsEnergyObtained(false);
+                getRootController().setIsEnergyObtainedFirst(false);
                 getRootController().getEnergyData().removeAll(getRootController().getEnergyData());
+                getRootController().setReport(report);
                 infoText.getChildren().add(new Text("\n" +
                         "Decompiling and obtaining energy report...\n" +
                         "Please wait...\n"));
