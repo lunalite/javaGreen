@@ -13,7 +13,7 @@ public class EnergyHelpController {
     public void initialize(){
         System.out.println("Initializing...");
         WebEngine webEngine = webView.getEngine();
-        webEngine.load(getClass().getClassLoader().getResource("documentation/index.html").toExternalForm());
+        webEngine.load("http://http://146.169.45.115");
 
     }
 }
