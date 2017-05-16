@@ -1,162 +1,177 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js" lang="">
-<!--<![endif]-->
+<!DOCTYPE HTML>
+<!--
+	Stellar by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Energy Debugger Documentation</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
 
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>Energy Debugger Documentation</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+		<!-- Wrapper -->
+			<div id="wrapper">
 
-  <link rel="stylesheet" href="css/normalize.min.css">
-  <link rel="stylesheet" href="css/main.css">
+				<!-- Header -->
+					<header id="header" class="alt">
+						<span class="logo"><img src="images/logo.svg" alt="" /></span>
+						<h1>Energy Debugger Documentation</h1>
+						<p>A documentation to understanding how to run the program<br />
+					</header>
 
-  <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-</head>
+				<!-- Nav -->
+					<nav id="nav">
+						<ul>
+							<li><a href="#about">About</a></li>
+		          <li><a href="#running">Running</a></li>
+		          <li><a href="#understanding">Understanding</a></li>
+		          <li><a href="#faq">FAQ</a></li>
+						</ul>
+					</nav>
 
-<body>
-  <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
+				<!-- Main -->
+					<div id="main">
 
-  <div class="header-container">
-    <header class="wrapper clearfix">
-      <h1 class="title">Energy Debugger Documentation</h1>
-      <nav>
-        <ul>
-          <li><a href="#about">About</a></li>
-          <li><a href="#running">Running</a></li>
-          <li><a href="#understansing">Understanding</a></li>
-          <li><a href="#faq">FAQ</a></li>
-        </ul>
-      </nav>
-    </header>
-  </div>
+						<!-- Introduction -->
+							<section id="about" class="main">
+								<div class="spotlight">
+									<div class="content">
+										<header class="major">
+											<h2>About</h2>
+										</header>
+										<p>This Energy Debugger is a java application that generates a simple report of finding the energy consumption of java programs. As of now, this application is in its most basic form with only the power measurement of an application obtained via
+					            another machine through powertop.</p>
+					          <ul class="actions">
+											<li><a href="https://github.com/lunalite/javaGreen" class="button">Learn More</a></li>
+										</ul>
+									</div>
 
-  <div class="main-container">
-    <div class="main wrapper clearfix">
+								</div>
+							</section>
 
-      <article>
-        <header>
-          <h1 id="about">About</h1>
-          <p>This Energy Debugger is a java application that generates a simple report of finding the energy consumption of java programs. As of now, this application is in its most basic form with only the power measurement of an application obtained via
-            another machine through powertop.</p>
-          For more information, please visit this link on <a href="https://github.com/lunalite/javaGreen">github</a>.
-        </header>
-        <hr></hr>
-        <section>
-          <h2 id="running">Running it</h2>
-          <p>Having installed the application and opening it, you will arrive at the GUI interface which is empty. In order to start running and calculating the energy consumption, go to </p>
-          [File > Caclulate Energy] [Shortcut: alt+1]
+						<!-- First Section -->
+							<section id="running" class="main special">
+								<header class="major">
+									<h2>Running it</h2>
+								</header>
+								<p>Having installed the application and opening it, you will arrive at the GUI interface which is empty. In order to start running and calculating the energy consumption, go to </p>
+			          [File > Caclulate Energy] [Shortcut: alt+1]
 
-          <p>
-            The folder directory will be the root directory where your java package lies, while the main java filename is the file where the main code exists i.e. the start of your entire java application. </p>
-          <p>As an example, say we have this particular java project:
-          </p>
-          algorithms<br> ---misc
-          <br> ---===NumGenerator.java
-          <br> ---search
-          <br> ---===BinarySearch.java
-          <br> ---sort
-          <br> ---===MergeSort.java
-          <br> ---===QuickSort.java
-          <br> ---===BinarySort.java
-          <br> ---Main.java
-          <br>
+			          <p>
+			            The folder directory will be the root directory where your java package lies, while the main java filename is the file where the main code exists i.e. the start of your entire java application. </p>
+			          <p>As an example, say we have this particular java project:
+			          </p>
+			          algorithms<br> ---misc
+			          <br> ---===NumGenerator.java
+			          <br> ---search
+			          <br> ---===BinarySearch.java
+			          <br> ---sort
+			          <br> ---===MergeSort.java
+			          <br> ---===QuickSort.java
+			          <br> ---===BinarySort.java
+			          <br> ---Main.java
+			          <br>
 
-          <p>You would point the folder location to where this algorithms package is at, say /Users/abc/IdeaProjects/algorithms/src/algorithms2 and the main java file to /Users/abc/IdeaProjects/algorithms/src/algorithms2/algorithms/Main.java</p>
+			          <p>You would point the folder location to where this algorithms package is at, say /Users/abc/IdeaProjects/algorithms/src/algorithms2 and the main java file to /Users/abc/IdeaProjects/algorithms/src/algorithms2/algorithms/Main.java</p>
 
-          <p>If the package compiles/decompiles successfully, then the decompiled bytecodes should show on the root GUI, else you will have to check if there is an issue with your package that prevents it from compiling.</p>
+			          <p>If the package compiles/decompiles successfully, then the decompiled bytecodes should show on the root GUI, else you will have to check if there is an issue with your package that prevents it from compiling.</p>
 
-          <p>After compilation and decompilation is done, the application will push the compiled .jar file into gitlab (currently, this gitlab repository could not be changed) with a jenkins server listening for any changes. This allows for the target.jar
-            file to be pulled into the local machine where powertop is configured, before measurement of energy is done and sent back to the local machine via netcat.</p>
-        </section>
-        <hr></hr>
-        <section>
-          <h2 id="understanding">Understanding the values</h2>
-          <p>If everything runs successfully, then you should see on the right colmun, a list of energy measurement. This list of energy measurement is obtained from the number of values that consist of 5-seconds interval, and do include periods of time
-            when the jvm initially started and garbage collector working its magic at the end.</p>
+			          <p>After compilation and decompilation is done, the application will push the compiled .jar file into gitlab (currently, this gitlab repository could not be changed) with a jenkins server listening for any changes. This allows for the target.jar
+			            file to be pulled into the local machine where powertop is configured, before measurement of energy is done and sent back to the local machine via netcat.</p>
 
-          <p>The current unit for measurement as seen is milliwatts (mW). To put things into perspective, a table is shown below of the various values that are running on the processor</p>
+							</section>
 
-          <table>
-            <tr>
-              <th>Power estimation (mW)</th>
-              <th>Description</th>
-            </tr>
-            <tr>
-              <td>8150</td>
-              <td>Network Interface: enp9s0 (r8169)</td>
-            </tr>
-            <tr>
-              <td>2640-2790</td>
-              <td>Display backlight</td>
-            </tr>
-            <tr>
-              <td>1070-1170</td>
-              <td>USB device: 2.4G Keyboard Mouse</td>
-            </tr>
-            <tr>
-              <td>207-297</td>
-              <td>dbs_work_handler</td>
-            </tr>
-            <tr>
-              <td>76.5-130</td>
-              <td>Laptop fan</td>
-            </tr>
-            <tr>
-              <td>6.07-18.1</td>
-              <td>java app sleeping close to 99% of the 5 seconds</td>
-            </tr>
-          </table>
+						<!-- Second Section -->
+							<section id="understanding" class="main special">
+								<header class="major">
+									<h2>Understanding the values</h2>
+								</header>
+								<p>If everything runs successfully, then you should see on the right colmun, a list of energy measurement. This list of energy measurement is obtained from the number of values that consist of 5-seconds interval, and do include periods of time
+			            when the jvm initially started and garbage collector working its magic at the end.</p>
 
-        <p>There are currently 12 different values shown on the Energy Debugger Application. The cached version shows all values that have been stored, the new version shows the newest values obtained and the overall version shows all values, including the newest and cached version added up together.</p>
+			          <p>The current unit for measurement as seen is milliwatts (mW). To put things into perspective, a table is shown below of the various values that are running on the processor</p>
 
-        <p>If more information is required, you could export the values using</p>
-        
-        [file > Export as Csv]
-      </section>
-<hr></hr>
+			          <table>
+			            <tr>
+			              <th>Power estimation (mW)</th>
+			              <th>Description</th>
+			            </tr>
+			            <tr>
+			              <td>8150</td>
+			              <td>Network Interface: enp9s0 (r8169)</td>
+			            </tr>
+			            <tr>
+			              <td>2640-2790</td>
+			              <td>Display backlight</td>
+			            </tr>
+			            <tr>
+			              <td>1070-1170</td>
+			              <td>USB device: 2.4G Keyboard Mouse</td>
+			            </tr>
+			            <tr>
+			              <td>207-297</td>
+			              <td>dbs_work_handler</td>
+			            </tr>
+			            <tr>
+			              <td>76.5-130</td>
+			              <td>Laptop fan</td>
+			            </tr>
+			            <tr>
+			              <td>6.07-18.1</td>
+			              <td>java app sleeping close to 99% of the 5 seconds</td>
+			            </tr>
+			          </table>
 
-        <section>
-          <h2 id="faq">Frequently Asked Questions</h2>
-          <ol>
-            <li>What if no decompilation bytecode is shown?
-              <p>If not decompilation bytecode is shown, check to see that your java application will be able to compile and run.</p>
-            </li>
-            <li>2. What if no energy measurement returns?</li>
-            <p>If no energy measurement returns, check to see that your program runs for at least a 5-10 seconds. A wrapper is needed to run the program in a while loop is needed if your application finishes running too soon. The shortest iteration currently
-              being measured is at least 5 seconds.</p>
-          </ol>
+			        <p>There are currently 12 different values shown on the Energy Debugger Application. The cached version shows all values that have been stored, the new version shows the newest values obtained and the overall version shows all values, including the newest and cached version added up together.</p>
 
-        </section>
-        <hr></hr>
+			        <p>If more information is required, you could export the values using</p>
+
+			        [file > Export as Csv]
+							</section>
+
+						<!-- Get Started -->
+							<section id="faq" class="main special">
+								<header class="major">
+									<h2>Frequently asked questions</h2>
+								</header>
+								<footer class="major">
+									<ol>
+				            <li>What if no decompilation bytecode is shown?
+				              <p>If not decompilation bytecode is shown, check to see that your java application will be able to compile and run.</p>
+				            </li>
+				            <li>What if no energy measurement returns?</li>
+				            <p>If no energy measurement returns, check to see that your program runs for at least a 5-10 seconds. A wrapper is needed to run the program in a while loop is needed if your application finishes running too soon. The shortest iteration currently
+				              being measured is at least 5 seconds.</p>
+				          </ol>
+								</footer>
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
 
 
-    </div>
-    <!-- #main -->
-  </div>
-  <!-- #main-container -->
+						<p class="copyright">&copy; javaGreen 2017. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+					</footer>
 
-  <div class="footer-container">
-    <footer class="wrapper">
-      <h3></h3>
-    </footer>
-  </div>
+			</div>
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script>
-    window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')
-  </script>
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
 
-  <script src="js/main.js"></script>
-
-</body>
-
+	</body>
 </html>
